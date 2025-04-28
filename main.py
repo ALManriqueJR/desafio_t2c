@@ -79,7 +79,7 @@ def main():
             produtos.append({"Produto": nome, "Qtd_Aval":qtd_review, "URL": link})
         
         next_button = nav.find_elements(By.XPATH, '//button[@aria-label="Go to next page"]')
-        if next_button and next_button[0].is_enabled():
+        if next_button:
             next_button[0].click()
             wait.until(EC.presence_of_element_located((By.XPATH, '//div[@data-testid="product-list"]/ul/li')))         
         else:
