@@ -18,6 +18,7 @@ Este projeto é um **scraper automatizado** que coleta informações de notebook
 
 pip install -r requirements.txt
 SENDGRID_TOKEN=seu_token_sendgrid_aqui (dentro do .env)
+EMAIL=email_desejado (dentro do .env)
 
 executar
 
