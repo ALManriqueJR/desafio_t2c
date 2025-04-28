@@ -1,7 +1,7 @@
 import os
 import base64
 
-from sendgrid import SendGridAPICLient
+from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail, Attachment, FileContent, FileName, FileType, Disposition
 from dotenv import load_dotenv
 
@@ -30,12 +30,12 @@ def enviar(caminho:str):
     
     message = Mail(
         from_email=os.getenv('EMAIL'),
-        to_email=os.getenv('EMAIL'),
+        to_emails=os.getenv('EMAIL'),
         subject='Relatório Notebooks',
         html_content='<p>Olá, aqui está o seu relatório dos notebooks extraídos da Magazine Luiza.<br>Atenciosamente,<br>Robô</p>'
     )
     
     message.attachment = [anexo]
     
-    sg = SendGridAPICLient(TOKEN)
+    sg = SendGridAPIClient(TOKEN)
     sg.send(message)

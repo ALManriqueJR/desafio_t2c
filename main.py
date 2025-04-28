@@ -1,9 +1,9 @@
-    """
-    Visa busca de notebooks no site da Magazine Luiza, gerando arquivo Excel e finalmente enviando por email.
-    """
+"""
+Visa busca de notebooks no site da Magazine Luiza, gerando arquivo Excel e finalmente enviando por email.
+"""
 import os
 import re
-import xlswriter as create_excel
+import xlsxwriter as create_excel
 import send_to_email
 
 from selenium import webdriver as wb
@@ -11,7 +11,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 
 from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as # -*- coding=utf-8 -*-
+from selenium.webdriver.support import expected_conditions as EC
 
 def main():
     
@@ -21,7 +21,7 @@ def main():
     qtd_review = -1
     
     caminho_arquivo = os.path.join(os.getcwd(), 'Output', 'Notebooks.xlsx')
-    planilha = create_excel.Workboook(caminho_arquivo)
+    planilha = create_excel.Workbook(caminho_arquivo)
     aba1 = planilha.add_worksheet("Piores")
     aba2 = planilha.add_worksheet("Melhores")
     
@@ -32,11 +32,10 @@ def main():
     for i in range(1,3):
         try:
             nav.get('https://www.magazineluiza.com.br')
-            wait.until(EC.presence_of_element_located(By.XPATH, '//*[@id="input-search"]'))
+            wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="input-search"]')))
             nav.find_element(By.ID, 'input-search').send_keys('notebooks')
             nav.find_element(By.ID, 'input-search').send_keys(Keys.RETURN)
-            
-            if (wait.until(EC.presence_of_element_located(By.XPATH,'//div[@data-testid="product-list"]/ul/li'))):
+            if wait.until(EC.presence_of_element_located((By.XPATH, '//div[@data-testid="product-list"]/ul/li'))):
                 break
             else:
                 if (i == 3):
@@ -64,7 +63,8 @@ def main():
             
             
             nome = link.split('/')[3]
-            lista = [palavra.upper if len(palavra) < 4 else palavra.capitalize() for palavra in nome.split('-')]
+            lista = [palavra.upper() if len(palavra) < 4 else palavra.capitalize()
+            for palavra in nome.split('-')]
             nome = ' '.join(lista)
             
             
@@ -79,9 +79,9 @@ def main():
             produtos.append({"Produto": nome, "Qtd_Aval":qtd_review, "URL": link})
         
         next_button = nav.find_elements(By.XPATH, '//button[@aria-label="Go to next page"]')
-        if next_button and next_button[0].is_enable():
+        if next_button and next_button[0].is_enabled():
             next_button[0].click()
-            wait.until(EC.presence_of_element_located(By.XPATH, '//div[@data-testid="product-list"]/ul/li'))                
+            wait.until(EC.presence_of_element_located((By.XPATH, '//div[@data-testid="product-list"]/ul/li')))         
         else:
             break
         
