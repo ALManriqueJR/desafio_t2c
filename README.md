@@ -1,4 +1,4 @@
-# Desagio T2C
+# Desafio T2C
 
 Este projeto é um **scraper automatizado** que coleta informações de notebooks no site da Magazine Luiza, organiza os dados em uma planilha Excel e envia o arquivo por e-mail usando o serviço **SendGrid**.
 
