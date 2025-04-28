@@ -19,7 +19,7 @@ def enviar(caminho:str):
         print('Erro no TOKEN!')
         return
     
-    countedo_encoded = base64.b64encode(get_anexo(caminho)).decode()
+    conteudo_encoded = base64.b64encode(get_anexo(caminho)).decode()
     
     anexo = Attachment(
         FileContent(conteudo_encoded),
@@ -37,5 +37,5 @@ def enviar(caminho:str):
     
     message.attachment = [anexo]
     
-    sg.SendGridAPIClient(TOKEN)
+    sg = SendGridAPICLient(TOKEN)
     sg.send(message)
